@@ -1,11 +1,14 @@
 import React from "react"
 import Register from "./pages/register"
+import Login from "./pages/login"
 
 
 const App = () => {
     return (
         <div id="divContainer">
-            <Register />
+            <Register/>
+            <hr/>
+            <Login/>
         </div>
     )
 }
