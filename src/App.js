@@ -1,15 +1,24 @@
-import React from "react"
 import Register from "./pages/register"
 import Login from "./pages/login"
+import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom'
+import { ROUTE_CONSTANTS } from "./core/utils/constants"
+import MainLayout from "./layouts/Main"
 
 
 const App = () => {
     return (
-        <div id="divContainer">
-            <Register/>
-            <hr/>
-            <Login/>
-        </div>
+        <RouterProvider 
+            router={
+                createBrowserRouter(
+                    createRoutesFromElements(
+                        <Route path="/" element={<MainLayout />}>
+                            <Route path={ROUTE_CONSTANTS.LOGIN} element={<Login />} />
+                            <Route path={ROUTE_CONSTANTS.REGISTER} element={<Register />} />
+                        </Route>
+                    )
+                )
+            }
+        />
     )
 }
 

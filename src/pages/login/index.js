@@ -3,6 +3,9 @@ import { Form, Input, Button } from 'antd'
 import { auth } from "../../services/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { regexpValidation } from "../../core/utils/constants";
+import { ROUTE_CONSTANTS } from "../../core/utils/constants";
+import { Link } from "react-router-dom";
+
 
 const Login = () => {
     const [loading, setLoading] = useState(false)
@@ -54,6 +57,10 @@ const Login = () => {
                 <Button type="primary" htmlType="submit" loading={loading}>
                     Sign In
                 </Button>
+
+                <Link to={ROUTE_CONSTANTS.REGISTER}>
+                    <Button>Register</Button>
+                </Link>
             </Form>
         </div>
     )
