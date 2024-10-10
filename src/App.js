@@ -2,7 +2,8 @@ import Register from "./pages/register"
 import Login from "./pages/login"
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom'
 import { ROUTE_CONSTANTS } from "./core/utils/constants"
-import MainLayout from "./layouts/Main"
+import MainLayout from './components/layouts/Main'
+import './styles/global.css'
 
 
 const App = () => {
