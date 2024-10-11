@@ -1,6 +1,69 @@
+.register {
+    background-color: #f0f2f4;
+    height: 100dvh;
+    box-sizing: border-box;
+}
+
+.register_container {
+    display: flex;
+    max-width: 60%;
+    margin: 0 auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.7);
+    box-sizing: border-box;
+}
+
 .auth_container {
-    max-width: 600px;
-    border: 1px solid black;
+    background-color: white;
     padding: 22px;
-    border-radius: 12px;
+}
+
+
+.auth_container, .register_image_container {
+    flex: 1;
+}
+
+.register_image_container {
+    padding: 70px 0;
+    background-color: white;
+    text-align: center;
+    width: 50%;
+}
+
+.register_image_container img {
+    max-width: 100%;
+    height: auto;
+    padding: 70px 0;
+    object-fit: contain;
+}
+
+
+@media (max-width:700px) {
+    .register_image_container {
+        display: none;
+    }
+}
+
+
+@media (max-width: 540px) {
+    .ant-checkbox-wrapper{
+        font-size: 12px;
+    }
+}
+
+@media (max-width:485px) {
+    .ant-checkbox-wrapper {
+        font-size: 10px;
+    }
+}
+
+@media (max-width:424px) {
+    .ant-checkbox-wrapper {
+        font-size: 9px;
+    }
+}
+
+@media (max-width:350px) {
+    .auth_container p {
+        font-size: 12px;
+    }
 }
