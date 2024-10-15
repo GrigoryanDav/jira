@@ -8,7 +8,7 @@ import AuthWrapper from '../../../components/sheard/AuthWrapper'
 import loginBanner from '../../../core/images/auth-login.jpg'
 
 
-const Login = () => {
+const Login = (setIsAuth) => {
     const [loading, setLoading] = useState(false);
     const [form] = Form.useForm();
 
@@ -18,6 +18,7 @@ const Login = () => {
             const { email, password } = values
             await signInWithEmailAndPassword(auth, email, password)
             form.resetFields()
+            setIsAuth(true)
         } catch (err) {
             console.log(err)
         } finally {

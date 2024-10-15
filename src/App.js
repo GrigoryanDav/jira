@@ -1,5 +1,5 @@
 import { Register, Login } from "./pages/auth"
-import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route, Navigate } from 'react-router-dom'
 import { ROUTE_CONSTANTS } from "./core/utils/constants"
 import MainLayout from './components/layouts/Main'
 import Cabinet from "./pages/cabinet"
@@ -23,9 +23,9 @@ const App = () => {
                 createBrowserRouter(
                     createRoutesFromElements(
                         <Route path="/" element={<MainLayout />}>
-                            <Route path={ROUTE_CONSTANTS.LOGIN} element={<Login />} />
-                            <Route path={ROUTE_CONSTANTS.REGISTER} element={<Register />} />
-                            <Route path={ROUTE_CONSTANTS.CABINET} element={<Cabinet />} />
+                            <Route path={ROUTE_CONSTANTS.LOGIN} element={isAuth ? <Navigate to={ROUTE_CONSTANTS.CABINET} /> : <Login />} />
+                            <Route path={ROUTE_CONSTANTS.REGISTER} element={isAuth ? <Navigate to={ROUTE_CONSTANTS.CABINET} /> : <Register />} />
+                            <Route path={ROUTE_CONSTANTS.CABINET} element={isAuth ? <Cabinet /> : <Navigate to={ROUTE_CONSTANTS.LOGIN} />} />
                         </Route>
                     )
                 )
