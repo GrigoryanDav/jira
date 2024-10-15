@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Form, Input, Button, Flex } from 'antd'
+import { Form, Input, Button, Flex, notification } from 'antd'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../../services/firebase'
 import { ROUTE_CONSTANTS } from '../../../core/utils/constants'
@@ -20,7 +20,9 @@ const Login = (setIsAuth) => {
             form.resetFields()
             setIsAuth(true)
         } catch (err) {
-            console.log(err)
+            notification.error({
+                message: 'Invalid Login Credentials',
+            })
         } finally {
             setLoading(false)
         }
