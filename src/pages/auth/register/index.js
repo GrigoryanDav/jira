@@ -64,6 +64,7 @@ const Register = () => {
                 <Form.Item
                     label="Password"
                     name="password"
+                    tooltip="Password must be 6-16 characters long, contain at least one digit, one special character (!@#$%^&*), and may include uppercase and lowercase letters."
                     rules={[{
                         required: true,
                         message: 'Please input your Password'

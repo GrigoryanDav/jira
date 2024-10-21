@@ -45,7 +45,6 @@ const Login = () => {
                 <Form.Item
                     label="Password"
                     name="password"
-                    tooltip="Password must be 6-16 characters long, contain at least one digit, one special character (!@#$%^&*), and may include uppercase and lowercase letters."
                     rules={[{
                         required: true,
                         message: 'Please input your Password'
@@ -54,6 +53,7 @@ const Login = () => {
                 >
                     <Input.Password placeholder='Password' />
                 </Form.Item>
+
                 <Flex align='center' justify='flex-end' gap='10px'>
                     <Link to={ROUTE_CONSTANTS.REGISTER}>Create account</Link>
 
