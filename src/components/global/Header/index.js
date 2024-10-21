@@ -1,21 +1,23 @@
 import { ROUTE_CONSTANTS } from "../../../core/utils/constants";
 import { Link } from "react-router-dom";
 import { Flex, Button } from "antd";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/authContext";
+import AuthProfileDropDown from '../../sheard/AuthProfileDropDown'
 import './index.css'
 
 
 const Header = () => {
+    const { isAuth } = useContext(AuthContext)
     return (
         <div className="main_header">
             <Flex justify="space-between" align="center">
                 <p>Logo</p>
 
                 <div>
-                    <Link to={ROUTE_CONSTANTS.LOGIN}>
-                        <Button>
-                            Sign in
-                        </Button>
-                    </Link>
+                    {
+                        isAuth ? <AuthProfileDropDown /> : <Link to={ROUTE_CONSTANTS.LOGIN}><Button>Sign In</Button></Link>
+                    }
                 </div>
             </Flex>
         </div>
