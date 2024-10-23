@@ -28,6 +28,7 @@ const AuthProfileDropDown = () => {
         {
             label: 'Cabinet',
             key: 1,
+            onClick: () => navigate(ROUTE_CONSTANTS.CABINET)
         },
         {
             label: 'Logout',
