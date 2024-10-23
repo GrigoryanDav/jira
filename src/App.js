@@ -4,6 +4,7 @@ import { ROUTE_CONSTANTS } from "./core/utils/constants"
 import MainLayout from './components/layouts/Main'
 import LoadingWrapper from "./components/sheard/LoadingWrapper"
 import Cabinet from "./pages/cabinet"
+import Profile from "./pages/profile"
 import { auth } from "./services/firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import { useEffect, useState } from "react"
@@ -33,6 +34,7 @@ const App = () => {
                                     <Route path={ROUTE_CONSTANTS.LOGIN} element={isAuth ? <Navigate to={ROUTE_CONSTANTS.CABINET} /> : <Login />} />
                                     <Route path={ROUTE_CONSTANTS.REGISTER} element={isAuth ? <Navigate to={ROUTE_CONSTANTS.CABINET} /> : <Register />} />
                                     <Route path={ROUTE_CONSTANTS.CABINET} element={isAuth ? <Cabinet /> : <Navigate to={ROUTE_CONSTANTS.LOGIN} />} />
+                                    <Route path={ROUTE_CONSTANTS.PROFILE} element={isAuth ? <Profile /> : <Navigate to={ROUTE_CONSTANTS.LOGIN} />} />
                                 </Route>
                             )
                         )
