@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { auth } from '../../../services/firebase';
+import { auth, db } from '../../../services/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { Form, Button, Input, Flex } from 'antd'
 import { regexpValidation, ROUTE_CONSTANTS } from '../../../core/utils/constants';
+import { setDoc, doc } from 'firebase/firestore'
 import { Link, useNavigate } from 'react-router-dom';
 import AuthWrapper from '../../../components/sheard/AuthWrapper';
 import registerBanner from '../../../core/images/auth-register.jpg'
@@ -15,9 +16,15 @@ const Register = () => {
 
     const handleRegister = async (values) => {
         setLoading(true)
-        const { email, password } = values
+        const { firstName, lastName, email, password } = values
         try {
-            await createUserWithEmailAndPassword(auth, email, password)
+            const response = await createUserWithEmailAndPassword(auth, email, password)
+            const { uid } = response.user
+            const createdDoc = doc(db, 'registeredUsers', uid)
+            await setDoc(createdDoc, {
+                uid, firstName, lastName, email,
+            });
+
             navigate(ROUTE_CONSTANTS.LOGIN)
         } catch (e) {
             console.log(e)
