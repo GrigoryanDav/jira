@@ -8,7 +8,7 @@ import CabinetLayout from "./components/layouts/Cabinet"
 import { doc, getDoc } from 'firebase/firestore'
 import { auth, db } from "./services/firebase"
 import { onAuthStateChanged } from "firebase/auth"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { AuthContext } from "./context/authContext"
 import './styles/global.css'
 
@@ -19,6 +19,15 @@ const App = () => {
     const [loading, setLoading] = useState(true)
     const [userProfileInfo, setUserProfileInfo] = useState({})
 
+    const handleGetUserData = useCallback(async (uid) => {
+        const docRef = doc(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid)
+        const response = await getDoc(docRef)
+
+        if (response.exists()) {
+            setUserProfileInfo(response.data())
+        }
+    }, [])
+
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             user?.uid && handleGetUserData(user.uid)
@@ -26,19 +35,10 @@ const App = () => {
             setLoading(false)
             setIsAuth(Boolean(user))
         });
-    }, []);
-
-    const handleGetUserData = async (uid) => {
-        const docRef = doc(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid)
-        const response = await getDoc(docRef)
-
-        if (response.exists()) {
-            setUserProfileInfo(response.data())
-        }
-    }
+    }, [handleGetUserData]);
 
     return (
-        <AuthContext.Provider value={{ isAuth, userProfileInfo }}>
+        <AuthContext.Provider value={{ isAuth, userProfileInfo, handleGetUserData }}>
             <LoadingWrapper loading={loading}>
                 <RouterProvider
                     router={
