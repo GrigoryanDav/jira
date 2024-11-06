@@ -11,7 +11,7 @@ import './index.css'
 
 const Profile = () => {
     const dispatch = useDispatch()
-    const { aurhUserInfo: { userData } } = useSelector((store) => store.userProfile)
+    const { authUserInfo: { userData } } = useSelector((store) => store.userProfile)
     const [form] = Form.useForm()
     const [buttonLoading, setButtonLoading] = useState(false)
     const { uid, ...restData } = userData
