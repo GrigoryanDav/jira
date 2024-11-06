@@ -4,12 +4,15 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../../services/firebase'
 import { ROUTE_CONSTANTS } from '../../../core/utils/constants'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setIsAuth } from '../../../state-managment/slices/userProfile'
 import AuthWrapper from '../../../components/sheard/AuthWrapper'
 import loginBanner from '../../../core/images/auth-login.jpg'
 
 
 const Login = () => {
     const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch()
     const [form] = Form.useForm();
 
     const handleLogin = async values => {
@@ -18,6 +21,7 @@ const Login = () => {
             const { email, password } = values
             await signInWithEmailAndPassword(auth, email, password)
             form.resetFields()
+            dispatch(setIsAuth(true))
         } catch (err) {
             notification.error({
                 message: 'Invalid Login Credentials',
