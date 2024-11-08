@@ -1,10 +1,11 @@
-import { Button, Form, Input, notification, Upload } from 'antd'
+import { Button, Form, Input, notification } from 'antd'
 import { db } from '../../services/firebase'
 import { doc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { FIRESTORE_PATH_NAMES } from '../../core/utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserProfileInfo } from '../../state-managment/slices/userProfile'
+import ImgUpload from '../../components/sheard/ImgUpload'
 import './index.css'
 
 
@@ -44,9 +45,7 @@ const Profile = () => {
                 <Form.Item
                     label='Profile Image'
                 >
-                    <Upload>
-                        Upload
-                    </Upload>
+                    <ImgUpload />
                 </Form.Item>
 
                 <Form.Item
