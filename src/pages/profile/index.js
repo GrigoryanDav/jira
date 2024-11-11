@@ -26,7 +26,7 @@ const Profile = () => {
         try {
             const userDocRef = doc(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid)
             await updateDoc(userDocRef, values)
-            dispatch(fetchUserProfileInfo())
+            // dispatch(fetchUserProfileInfo())
             notification.success({
                 message: 'User data successfully updated'
             })

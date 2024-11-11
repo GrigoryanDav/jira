@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { auth, db } from '../../../services/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { Form, Button, Input, Flex } from 'antd'
-import { regexpValidation, ROUTE_CONSTANTS } from '../../../core/utils/constants';
+import { regexpValidation, ROUTE_CONSTANTS, FIRESTORE_PATH_NAMES } from '../../../core/utils/constants';
 import { setDoc, doc } from 'firebase/firestore'
 import { Link, useNavigate } from 'react-router-dom';
 import AuthWrapper from '../../../components/sheard/AuthWrapper';
@@ -20,7 +20,7 @@ const Register = () => {
         try {
             const response = await createUserWithEmailAndPassword(auth, email, password)
             const { uid } = response.user
-            const createdDoc = doc(db, 'registeredUsers', uid)
+            const createdDoc = doc(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid)
             await setDoc(createdDoc, {
                 uid, firstName, lastName, email,
             });
