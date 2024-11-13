@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, useNavigate, useLocation } from "react-router-dom"
 import { Layout, Menu, theme, Breadcrumb } from 'antd'
 import { ROUTE_CONSTANTS } from "../../../core/utils/constants"
 import './index.css'
@@ -9,13 +9,23 @@ const menuItems = [
     {
         label: 'Personal Information',
         key: ROUTE_CONSTANTS.PROFILE
-    }
+    },
+    {
+        label: 'Cabinet',
+        key: ROUTE_CONSTANTS.CABINET,
+    },
 ]
 
 const CabinetLayout = () => {
+    const navigate = useNavigate()
+    const { pathname } = useLocation()
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken()
+
+    const handleNavigate = ({ key }) => {
+        navigate(key)
+    }
 
     return (
         <div className="cabinet_layout_main_container">
@@ -23,6 +33,8 @@ const CabinetLayout = () => {
                 <Menu
                     mode="inline"
                     items={menuItems}
+                    onSelect={handleNavigate}
+                    selectedKeys={[pathname]}
                 />
             </Sider>
 
