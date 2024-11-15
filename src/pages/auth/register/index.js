@@ -40,7 +40,7 @@ const Register = () => {
                     name="firstName"
                     rules={[{
                         required: true,
-                        message: 'Please input your Email'
+                        message: 'Please input your First Name'
                     }]}
                 >
                     <Input type='text' placeholder='First Name' />
@@ -51,7 +51,7 @@ const Register = () => {
                     name="lastName"
                     rules={[{
                         required: true,
-                        message: 'Please input your Email'
+                        message: 'Please input your Last Name'
                     }]}
                 >
                     <Input type='text' placeholder='Last Name' />
