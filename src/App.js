@@ -4,6 +4,7 @@ import { ROUTE_CONSTANTS } from "./core/utils/constants"
 import MainLayout from './components/layouts/Main'
 import LoadingWrapper from "./components/sheard/LoadingWrapper"
 import Profile from "./pages/profile"
+import Cabinet from "./pages/cabinet"
 import CabinetLayout from "./components/layouts/Cabinet"
 import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
@@ -23,30 +24,34 @@ const App = () => {
 
 
     return (
-            <LoadingWrapper loading={loading}>
-                <RouterProvider
-                    router={
-                        createBrowserRouter(
-                            createRoutesFromElements(
-                                <Route path="/" element={<MainLayout />}>
-                                    <Route path={ROUTE_CONSTANTS.LOGIN} element={isAuth ? <Navigate to={ROUTE_CONSTANTS.CABINET} /> : <Login />} />
-                                    <Route path={ROUTE_CONSTANTS.REGISTER} element={isAuth ? <Navigate to={ROUTE_CONSTANTS.CABINET} /> : <Register />} />
+        <LoadingWrapper loading={loading}>
+            <RouterProvider
+                router={
+                    createBrowserRouter(
+                        createRoutesFromElements(
+                            <Route path="/" element={<MainLayout />}>
+                                <Route path={ROUTE_CONSTANTS.LOGIN} element={isAuth ? <Navigate to={ROUTE_CONSTANTS.CABINET} /> : <Login />} />
+                                <Route path={ROUTE_CONSTANTS.REGISTER} element={isAuth ? <Navigate to={ROUTE_CONSTANTS.CABINET} /> : <Register />} />
 
+                                <Route
+                                    path={ROUTE_CONSTANTS.CABINET}
+                                    element={isAuth ? <CabinetLayout /> : <Navigate to={ROUTE_CONSTANTS.LOGIN} />}
+                                >
+                                    <Route
+                                        path={ROUTE_CONSTANTS.PROFILE}
+                                        element={<Profile />}
+                                    />
                                     <Route
                                         path={ROUTE_CONSTANTS.CABINET}
-                                        element={isAuth ? <CabinetLayout /> : <Navigate to={ROUTE_CONSTANTS.LOGIN} />}
-                                    >
-                                        <Route
-                                            path={ROUTE_CONSTANTS.PROFILE}
-                                            element={<Profile />}
-                                        />
-                                    </Route>
+                                        element={<Cabinet />}
+                                    />
                                 </Route>
-                            )
+                            </Route>
                         )
-                    }
-                />
-            </LoadingWrapper>
+                    )
+                }
+            />
+        </LoadingWrapper>
     )
 }
 

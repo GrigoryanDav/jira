@@ -1,7 +1,19 @@
+import { Button } from "antd"
+import { useState } from "react"
+
+
 const Cabinet = () => {
+    const [showModal, setShowModal] = useState(false)
+
+    const handleOpenModal = () => {
+        setShowModal(true)
+    }
+
     return (
         <div>
-            <h2>Cabinet</h2>
+            <Button type="primary" onClick={handleOpenModal}>
+                Create Issue
+            </Button>
         </div>
     )
 }
