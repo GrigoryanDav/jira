@@ -1,5 +1,6 @@
 import { Modal, Form } from "antd";
 import { useState } from "react";
+import ModalForm from "../Form";
 
 
 const AddIssueModal = ({ isOpen, onClose }) => {
@@ -9,6 +10,10 @@ const AddIssueModal = ({ isOpen, onClose }) => {
     const handleClose = () => {
         onClose()
         form.resetFields()
+    }
+
+    const handleCreateIssue = (values) => {
+        console.log('handleCreateIssue', values)
     }
 
     return (
@@ -22,7 +27,7 @@ const AddIssueModal = ({ isOpen, onClose }) => {
             confirmLoading={buttonLoading}
             centered
         >
-
+            <ModalForm form={form} onFinish={handleCreateIssue} />
         </Modal>
     )
 }
