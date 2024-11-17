@@ -1,5 +1,6 @@
 import { Form, Input, Select, Space } from "antd";
 import { ISSUE_OPTIONS, ISSUE_PRIORITY_OPTIONS } from "../../../../core/utils/issues";
+import Editor from "../../Editor";
 
 
 
@@ -43,6 +44,19 @@ const ModalForm = ({ form, onFinish }) => {
                         })
                     }
                 </Select>
+            </Form.Item>
+
+            <Form.Item
+                name='description'
+                label='Description'
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input Issue Description'
+                    }
+                ]}
+            >
+                <Editor />
             </Form.Item>
 
             <Form.Item
