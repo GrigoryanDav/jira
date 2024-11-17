@@ -1,6 +1,10 @@
-import { Modal, Form } from "antd";
+import { Modal, Form, notification } from "antd";
 import { useState } from "react";
 import ModalForm from "../Form";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from '../../../../services/firebase'
+import { FIRESTORE_PATH_NAMES } from "../../../../core/utils/constants";
+import { generateUid } from "../../../../core/helpers/generateUid";
 
 
 const AddIssueModal = ({ isOpen, onClose }) => {
@@ -12,8 +16,30 @@ const AddIssueModal = ({ isOpen, onClose }) => {
         form.resetFields()
     }
 
-    const handleCreateIssue = (values) => {
-        console.log('handleCreateIssue', values)
+    const handleCreateIssue = async (values) => {
+        setButtonLoading(true)
+        const taskId = generateUid()
+
+        const taskModel = {
+            taskId,
+            ...values,
+            date: new Date().toLocaleDateString(),
+        }
+
+        try {
+            const createdDoc = doc(db, FIRESTORE_PATH_NAMES.ISSUES, taskId)
+            await setDoc(createdDoc, taskModel)
+            onClose()
+            notification.success({
+                message: 'Your task me been created'
+            })
+        } catch {
+            notification.error({
+                message: 'Error Oopps'
+            })
+        } finally {
+            setButtonLoading(false)
+        }
     }
 
     return (
