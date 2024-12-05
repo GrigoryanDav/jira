@@ -6,7 +6,7 @@ import { FIRESTORE_PATH_NAMES } from "../../../core/utils/constants";
 
 
 const initialState = {
-    loading: true,
+    loading: false,
     authUserInfo: {
         isAuth: false,
         userData: {},
