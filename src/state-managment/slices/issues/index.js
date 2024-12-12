@@ -5,7 +5,7 @@ import { FIRESTORE_PATH_NAMES } from '../../../core/utils/constants'
 import { transformIssueData } from '../../../core/helpers/transformIssueData'
 
 const initialState = {
-    data: [],
+    data: {},
     isLoading: false,
     error: null,
 }
@@ -18,9 +18,8 @@ export const fetchIssuesData = createAsyncThunk('data/fetchData', async () => {
         return doc.data()
     })
 
-    transformIssueData(resultData)
-
-    return resultData
+    
+    return transformIssueData(resultData)
 })
 
 

@@ -14,5 +14,5 @@ export const transformIssueData = (data) => {
         }
     })
 
-    console.log(container)
+    return container
 }
