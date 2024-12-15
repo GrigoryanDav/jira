@@ -7,13 +7,22 @@ import Editor from "../../Editor";
 
 
 
-const ModalForm = ({ form, onFinish }) => {
+const ModalForm = ({ form, onFinish, task }) => {
     const dispatch = useDispatch()
     const { users } = useSelector((store) => store.allUsers)
+    const { userData } = useSelector((store) => store.userProfile.authUserInfo)
+
 
     useEffect(() => {
         dispatch(fetchAllUsers())
     }, [dispatch])
+
+    const findOwnerById = (uid) => {
+        return users.find(user => user.uid === uid)
+    }
+
+    const ownerData = task?.owner ? findOwnerById(task.owner) : userData
+
 
     return (
         <Form layout="vertical" form={form} onFinish={onFinish}>
@@ -120,6 +129,33 @@ const ModalForm = ({ form, onFinish }) => {
                             <Select.Option disabled>No users available</Select.Option>
                         )
                     }
+                </Select>
+            </Form.Item>
+
+            <Form.Item
+                name="owner"
+                label="Owner"
+                initialValue={ownerData?.uid}
+                rules={[
+                    {
+                        required: true,
+                        message: "Please select an owner of issue"
+                    }
+                ]}
+            >
+                <Select placeholder="Select a user" disabled>
+                    <Select.Option value={ownerData?.uid} key={ownerData?.uid}>
+                        <Space>
+                            {ownerData?.imgUrl && (
+                                <Avatar
+                                    src={ownerData?.imgUrl}
+                                    alt="user image"
+                                    style={{ width: 24, height: 24, borderRadius: "50%" }}
+                                />
+                            )}
+                            <span>{`${ownerData?.firstName} ${ownerData?.lastName}`}</span>
+                        </Space>
+                    </Select.Option>
                 </Select>
             </Form.Item>
         </Form>

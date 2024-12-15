@@ -100,7 +100,6 @@ const Cabinet = () => {
                                                             {
                                                                 column.map((item, index) => {
                                                                     const assignedUser = getAssignedUser(item.assignTo)
-                                                                    console.log(assignedUser)
                                                                     return (
                                                                         <Draggable
                                                                             key={item.taskId}

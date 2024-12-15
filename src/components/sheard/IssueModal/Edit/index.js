@@ -49,6 +49,7 @@ const EditIssueModal = ({ isOpen, onClose, data }) => {
             <ModalForm 
                 form={form}
                 onFinish={handleEditIssue}
+                task={data}
             />
         </Modal>
     )
