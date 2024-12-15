@@ -11,7 +11,7 @@ const Header = () => {
     return (
         <div className="main_header">
             <Flex justify="space-between" align="center">
-                <p>Logo</p>
+                <p className="logo_title">Jira</p>
 
                 <div>
                     {

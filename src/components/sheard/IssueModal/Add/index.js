@@ -34,6 +34,7 @@ const AddIssueModal = ({ isOpen, onClose }) => {
         try {
             const createdDoc = doc(db, FIRESTORE_PATH_NAMES.ISSUES, taskId)
             await setDoc(createdDoc, taskModel)
+            form.resetFields()
             onClose()
             notification.success({
                 message: 'Your task me been created'

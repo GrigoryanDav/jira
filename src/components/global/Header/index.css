@@ -2,3 +2,11 @@
     background-color: #1868db;
     padding: 8px;
 }
+
+.logo_title {
+    color: white;
+    font-size: 30px;
+    letter-spacing: 2px;
+    margin: 0;
+    text-transform: uppercase;
+}
