@@ -1,15 +1,19 @@
-import { Button, Typography } from "antd"
+import { Button, Typography, Flex } from "antd"
 import { useEffect, useState } from "react"
 import AddIssueModal from "../../components/sheard/IssueModal/Add"
 import EditIssueModal from "../../components/sheard/IssueModal/Edit"
 import { useSelector, useDispatch } from "react-redux"
-import { fetchIssuesData } from "../../state-managment/slices/issues"
+import { fetchIssuesData, changeIssueColumns } from "../../state-managment/slices/issues"
 import LoadingWrapper from '../../components/sheard/LoadingWrapper'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
+import { ISSUE_OPTIONS, taskStatuses } from "../../core/utils/issues"
+import { db } from "../../services/firebase"
+import { updateDoc, doc } from "firebase/firestore"
+import { FIRESTORE_PATH_NAMES } from "../../core/utils/constants"
 import './index.css'
 
 
-const { Title } = Typography
+const { Title, Text } = Typography
 
 const Cabinet = () => {
     const dispatch = useDispatch()
@@ -27,6 +31,21 @@ const Cabinet = () => {
 
     const handleClose = () => {
         setShowModal(false)
+    }
+
+    const handleChangeTaskStatus = async (result) => {
+        if(result.destination) {
+            const { destination, source } = result
+            try {
+                dispatch(changeIssueColumns({ source, destination }))
+                const docRef = doc(db, FIRESTORE_PATH_NAMES.ISSUES, result.draggableId)
+                await updateDoc(docRef, {
+                    status: destination.droppableId,
+                })
+            } catch {
+                console.log('Error Drag')
+            }
+        }
     }
 
     return (
@@ -49,14 +68,14 @@ const Cabinet = () => {
 
             <div className="drag_context_container">
                 <LoadingWrapper loading={isLoading}>
-                    <DragDropContext>
+                    <DragDropContext onDragEnd={handleChangeTaskStatus}>
                         {
                             Object.entries(data).map(([columnId, column]) => {
                                 return (
                                     <div className="column_container" key={columnId}>
                                         <div className="column_header">
                                             <Title level={5} type="secondary">
-                                                {columnId}
+                                                {taskStatuses[columnId].title}
                                                 {'  '}
                                                 ({column.length})
                                             </Title>
@@ -88,7 +107,15 @@ const Cabinet = () => {
                                                                                             ref={provided.innerRef}
                                                                                             {...provided.dragHandleProps}
                                                                                         >
-                                                                                            Task
+                                                                                            <Flex justify="space-between">
+                                                                                                <Text>
+                                                                                                    {item.issueName}
+                                                                                                </Text>
+
+                                                                                                <div>
+                                                                                                    {ISSUE_OPTIONS[item.type]?.icon}
+                                                                                                </div>
+                                                                                            </Flex>
                                                                                         </div>
                                                                                     )
                                                                                 }

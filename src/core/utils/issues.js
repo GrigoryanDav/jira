@@ -32,19 +32,19 @@ export const COLOR_TYPES = {
 
 export const taskStatuses = {
     TODO: {
-        key: 0,
+        key: 'TODO',
         title: 'Todo',
     },
     IN_PROGRESS: {
-        key: 1,
+        key: 'IN_PROGRESS',
         title: 'In Progress',
     },
     TEST: {
-        key: 2,
+        key: 'TEST',
         title: 'Test',
     },
     DONE: {
-        key: 3,
+        key: 'DONE',
         title: 'Done',
     },
 }
