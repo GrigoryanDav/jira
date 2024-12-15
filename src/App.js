@@ -9,6 +9,7 @@ import CabinetLayout from "./components/layouts/Cabinet"
 import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { fetchUserProfileInfo } from "./state-managment/slices/userProfile"
+import Home from "./pages/home"
 import './styles/global.css'
 
 
@@ -30,6 +31,7 @@ const App = () => {
                     createBrowserRouter(
                         createRoutesFromElements(
                             <Route path="/" element={<MainLayout />}>
+                                <Route path="/" element={<Home />}/>
                                 <Route path={ROUTE_CONSTANTS.LOGIN} element={isAuth ? <Navigate to={ROUTE_CONSTANTS.CABINET} /> : <Login />} />
                                 <Route path={ROUTE_CONSTANTS.REGISTER} element={isAuth ? <Navigate to={ROUTE_CONSTANTS.CABINET} /> : <Register />} />
 

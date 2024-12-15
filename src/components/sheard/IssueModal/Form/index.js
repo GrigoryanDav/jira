@@ -114,7 +114,7 @@ const ModalForm = ({ form, onFinish, task }) => {
                     }
                 ]}
             >
-                <Select placeholder='Select a user'>
+                <Select placeholder='Select a user' dropdownStyle={{ maxHeight: 200, overflowY: 'auto' }}>
                     {
                         users && users.length > 0 ? (
                             users.map(({ uid, firstName, lastName, imgUrl }) => (

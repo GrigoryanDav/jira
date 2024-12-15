@@ -11,7 +11,7 @@ const Header = () => {
     return (
         <div className="main_header">
             <Flex justify="space-between" align="center">
-                <p className="logo_title">Jira</p>
+                <Link to='/'><p className="logo_title">Jira</p></Link>
 
                 <div>
                     {

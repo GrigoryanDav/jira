@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { fetchIssuesData, changeIssueColumns } from "../../state-managment/slices/issues"
 import LoadingWrapper from '../../components/sheard/LoadingWrapper'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
-import { ISSUE_OPTIONS, taskStatuses } from "../../core/utils/issues"
+import { ISSUE_OPTIONS, taskStatuses, ISSUE_PRIORITY_OPTIONS } from "../../core/utils/issues"
 import { db } from "../../services/firebase"
 import { updateDoc, doc } from "firebase/firestore"
 import { FIRESTORE_PATH_NAMES } from "../../core/utils/constants"
@@ -119,6 +119,8 @@ const Cabinet = () => {
                                                                                             <Flex justify="space-between">
                                                                                                 <Text>
                                                                                                     {item.issueName}
+                                                                                                    {'  '}
+                                                                                                    {ISSUE_PRIORITY_OPTIONS[item.priority].icon}
                                                                                                 </Text>
 
                                                                                                 <div>
@@ -129,11 +131,11 @@ const Cabinet = () => {
                                                                                             {assignedUser && (
                                                                                                 <div className="assigned_user">
                                                                                                     Assigned To:
-                                                                                                    <Avatar
+                                                                                                    {assignedUser.imgUrl && <Avatar
                                                                                                         src={assignedUser.imgUrl}
                                                                                                         alt="user image"
                                                                                                         style={{ width: 24, height: 24, borderRadius: '50%' }}
-                                                                                                    />
+                                                                                                    />}
                                                                                                     <Text>{`${assignedUser.firstName} ${assignedUser.lastName}`}</Text>
                                                                                                 </div>
                                                                                             )}
