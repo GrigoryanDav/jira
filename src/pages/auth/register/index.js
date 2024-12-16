@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { auth, db } from '../../../services/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { Form, Button, Input, Flex } from 'antd'
+import { Form, Button, Input, Flex, Progress } from 'antd'
 import { regexpValidation, ROUTE_CONSTANTS, FIRESTORE_PATH_NAMES } from '../../../core/utils/constants';
 import { setDoc, doc } from 'firebase/firestore'
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,6 +13,23 @@ const Register = () => {
     const [loading, setLoading] = useState(false)
     const [form] = Form.useForm()
     const navigate = useNavigate()
+    const [passwordStrength, setPasswordStrength] = useState(0)
+
+
+    const checkPasswordStrength = (value) => {
+        let strength = 0
+        if (value.length >= 1) strength += 20
+        if (value.length >= 10) strength += 20
+        if (/[A-Z]/.test(value)) strength += 20
+        if (/[0-9]/.test(value)) strength += 20
+        if (/[!@#$%^&*]/.test(value)) strength += 20
+
+        setPasswordStrength(strength)
+    }
+
+    const handlePasswordChange = (e) => {
+        checkPasswordStrength(e.target.value.trim())
+    }
 
     const handleRegister = async (values) => {
         setLoading(true)
@@ -82,8 +99,31 @@ const Register = () => {
                     }
                     ]}
                 >
-                    <Input.Password placeholder='Password' />
+                    <Input.Password placeholder='Password' onChange={handlePasswordChange} />
                 </Form.Item>
+
+                {
+                    form.getFieldValue('password') && (
+                        <Progress
+                            percent={passwordStrength}
+                            showInfo={false}
+                            strokeColor={
+                                passwordStrength < 40 ? 'red' : passwordStrength < 80 ? 'orange' : 'green'
+                            }
+                        />
+                    )
+                }
+
+                {
+                    form.getFieldValue('password') && (
+                        <p style={{ color: passwordStrength < 40 ? 'red' : passwordStrength < 80 ? 'orange' : 'green' }}>
+                            {
+                                passwordStrength < 40 ? 'Weak password' : passwordStrength < 80 ? 'Medium password' : 'Strong Password'
+                            }
+                        </p>
+                    )
+                }
+
 
                 <Form.Item
                     label="Confirm Password"
