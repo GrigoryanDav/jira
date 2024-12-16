@@ -18,6 +18,7 @@ export const fetchIssuesData = createAsyncThunk('data/fetchData', async () => {
         return doc.data()
     })
 
+    // Pass the raw data to the transform function to group it by status
     return transformIssueData(resultData)
 })
 
@@ -27,6 +28,7 @@ const issueSlice = createSlice({
     initialState,
     reducers: {
         changeIssueColumns: (state, action) => {
+             // Action for changing the columns (tasks' statuses) when tasks are reordered
             const columns = state.data
             const { destination, source } = action.payload
             const sourceColumnItems = [...columns[source.droppableId]]
@@ -36,12 +38,14 @@ const issueSlice = createSlice({
 
             let changeColumns = {}
             if (source.droppableId !== destination.droppableId) {
+                // If tasks are moved to a different column, update both columns
                 changeColumns = {
                     ...columns,
                     [source.droppableId]: sourceColumnItems,
                     [destination.droppableId]: destinationColumnItems,
                 }
             } else {
+                // If tasks are reordered within the same column, just update that column
                 sourceColumnItems.splice(destination.index, 0, removedItem)
                 changeColumns = {
                     ...columns,

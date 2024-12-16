@@ -25,7 +25,7 @@ export const fetchUserProfileInfo = createAsyncThunk('data/fetchUserProfileInfo'
                     if(userData.exists()) {
                         resolve(userData.data())
                     } else {
-                        resolve(null) //TODO ?
+                        resolve(null) 
                     }
                 })
             } else {

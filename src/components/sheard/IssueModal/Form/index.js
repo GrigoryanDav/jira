@@ -21,6 +21,7 @@ const ModalForm = ({ form, onFinish, task }) => {
         return users.find(user => user.uid === uid)
     }
 
+    // If task has an owner, use that, otherwise use current user's data
     const ownerData = task?.owner ? findOwnerById(task.owner) : userData
 
 

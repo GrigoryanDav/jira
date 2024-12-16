@@ -60,6 +60,7 @@ const Profile = () => {
         const uploadTask = uploadBytesResumable(storageRef, file)
 
         uploadTask.on('state_changed', (snapshot) => {
+            // Calculate upload progress percentage and update state
             const progressValue = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
             setProgress(progressValue)
         },
@@ -69,6 +70,7 @@ const Profile = () => {
                 message.error(`Error uploading file ${error.message}`)
             },
             () => {
+                // On successful upload, retrieve the file's download URL
                 getDownloadURL(uploadTask.snapshot.ref)
                     .then((imgUrl) => {
                         setUploading(false)
