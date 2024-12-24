@@ -3,6 +3,7 @@ import { ISSUE_OPTIONS, ISSUE_PRIORITY_OPTIONS } from "../../../../core/utils/is
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllUsers } from "../../../../state-managment/slices/allUsers";
+import { getUserById } from "../../../../core/helpers/getUserById";
 import Editor from "../../Editor";
 
 
@@ -17,12 +18,8 @@ const ModalForm = ({ form, onFinish, task }) => {
         dispatch(fetchAllUsers())
     }, [dispatch])
 
-    const findOwnerById = (uid) => {
-        return users.find(user => user.uid === uid)
-    }
-
     // If task has an owner, use that, otherwise use current user's data
-    const ownerData = task?.owner ? findOwnerById(task.owner) : userData
+    const ownerData = task?.owner ? getUserById(task.owner, users) : userData
 
 
     return (

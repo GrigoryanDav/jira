@@ -11,6 +11,7 @@ import { db } from "../../services/firebase"
 import { updateDoc, doc } from "firebase/firestore"
 import { FIRESTORE_PATH_NAMES } from "../../core/utils/constants"
 import { fetchAllUsers } from "../../state-managment/slices/allUsers"
+import { getUserById } from "../../core/helpers/getUserById"
 import './index.css'
 
 
@@ -51,9 +52,6 @@ const Cabinet = () => {
         }
     }
 
-    const getAssignedUser = (userId) => {
-        return users.find(user => user.uid === userId)
-    }
 
     return (
         <div>
@@ -99,7 +97,7 @@ const Cabinet = () => {
                                                         >
                                                             {
                                                                 column.map((item, index) => {
-                                                                    const assignedUser = getAssignedUser(item.assignTo)
+                                                                    const assignedUser = getUserById(item.assignTo, users)
                                                                     return (
                                                                         <Draggable
                                                                             key={item.taskId}
@@ -124,7 +122,7 @@ const Cabinet = () => {
                                                                                                 </Text>
 
                                                                                                 <div>
-                                                                                                    {ISSUE_OPTIONS[item.type]?.icon}
+                                                                                                    {ISSUE_OPTIONS[item.type].icon}
                                                                                                 </div>
                                                                                             </Flex>
 

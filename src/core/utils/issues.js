@@ -18,9 +18,9 @@ const ISSUE_TYPES = {
 const ISSUE_PRIORITY = {
     HIGHEST: 'highest',
     HIGH: 'high',
+    MEDIUM: 'medium',
     LOW: 'low',
     LOWEST: 'lowest',
-    MEDIUM: 'medium',
 }
 
 export const COLOR_TYPES = {
@@ -79,6 +79,11 @@ export const ISSUE_PRIORITY_OPTIONS = {
         value: ISSUE_PRIORITY.HIGH,
         icon: <ArrowUpOutlined style={{ color: COLOR_TYPES.RED }} />
     },
+    [ISSUE_PRIORITY.MEDIUM]: {
+        label: 'Medium',
+        value: ISSUE_PRIORITY.MEDIUM,
+        icon: <ArrowUpOutlined style={{ color: COLOR_TYPES.ORANGE }} />
+    },
     [ISSUE_PRIORITY.LOW]: {
         label: 'Low',
         value: ISSUE_PRIORITY.LOW,
@@ -89,9 +94,4 @@ export const ISSUE_PRIORITY_OPTIONS = {
         value: ISSUE_PRIORITY.LOWEST,
         icon: <ArrowDownOutlined style={{ color: COLOR_TYPES.GREEN }} />
     },
-    [ISSUE_PRIORITY.MEDIUM]: {
-        label: 'Medium',
-        value: ISSUE_PRIORITY.MEDIUM,
-        icon: <ArrowUpOutlined style={{ color: COLOR_TYPES.ORANGE }} />
-    }
 }
